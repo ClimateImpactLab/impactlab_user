@@ -6,28 +6,11 @@ from setuptools import setup, find_packages
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-requirements_install = [
-    'click==6.6',
-    'PyYAML==3.12',
-    'Sphinx==1.5.1',
-    'sphinx_rtd_theme==0.1.10a0',
-    'boto==2.45.0',
-    'boto3==1.4.3',
-    'datafs==0.6.2',
-    'jinja2==2.9.2'
-]
+with open('requirements.txt', 'r') as req:
+    requirements_install = [l.strip() for l in req.readlines() if l.strip() != '']
 
-
-requirements_test = [
-    'pip==9.0.1',
-    'wheel==0.29.0',
-    'flake8==3.2.1',
-    'tox==2.5.0',
-    'coverage==4.3.1',
-    'pytest==3.0.5',
-    'pytest_cov==2.4.0',
-    'pytest-runner==2.9'
-]
+with open('requirements_test.txt', 'r') as req:
+    requirements_test = [l.strip() for l in req.readlines() if l.strip() != '']
 
 extras = {
     'test': requirements_test
