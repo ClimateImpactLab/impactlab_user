@@ -39,12 +39,19 @@ install:
 
 script:
   - if [[ "$IMPACTLAB_USER_TEST_ENV" == "conda" ]]; then
-    source activate impactlab_user;
-    fi
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then 
-    tox;
-    else 
-    tox;
+      source activate impactlab_user;
+
+      if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then 
+        python -m pytest ./impactlab_user ./tests;
+      else
+        python -m pytest ./impactlab_user ./tests --cov --doctest-modules --cov-report term-missing;
+      fi;
+    else
+      if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then 
+        tox;
+      else 
+        tox;
+      fi;
     fi
 
 deploy:
