@@ -6,16 +6,16 @@ python:
 
 env:
   matrix:
-    - DATAFS_TEST_ENV=basic
-    - DATAFS_TEST_ENV=conda
+    - IMPACTLAB_USER_TEST_ENV=basic
+    - IMPACTLAB_USER_TEST_ENV=conda
 
 matrix:
   allow_failures:
     - python: pypy
-      env: DATAFS_TEST_ENV=conda
+      env: IMPACTLAB_USER_TEST_ENV=conda
 
 install:
-  - if [[ "$DATAFS_TEST_ENV" == "conda" ]]; then
+  - if [[ "$IMPACTLAB_USER_TEST_ENV" == "conda" ]]; then
       if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
           wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
         else
@@ -28,8 +28,8 @@ install:
       conda update -q conda;
       conda info -a;
 
-      conda create -q -n datafs python=$TRAVIS_PYTHON_VERSION h5py netCDF4 xarray dask numpy scipy pandas h5py hdf5 numba blaze scipy bottleneck dask;
-      source activate datafs;
+      conda create -q -n impactlab_user python=$TRAVIS_PYTHON_VERSION h5py netCDF4 xarray dask numpy scipy pandas h5py hdf5 numba blaze scipy bottleneck dask;
+      source activate impactlab_user;
     fi
   - python setup.py install
   - python -m pip install .
@@ -38,8 +38,8 @@ install:
   - python -m pip install pytest-cov
 
 script:
-  - if [[ "$DATAFS_TEST_ENV" == "conda" ]]; then
-    source activate datafs;
+  - if [[ "$IMPACTLAB_USER_TEST_ENV" == "conda" ]]; then
+    source activate impactlab_user;
     fi
   - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then 
     tox;
