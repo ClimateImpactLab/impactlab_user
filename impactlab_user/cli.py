@@ -27,9 +27,15 @@ def setup_datafs():
     click.echo('setting up datafs')
 
 
-@click.command()
+@click.group()
 @click.pass_context
 def cli(ctx):
+    pass
+
+
+@cli.command()
+@click.pass_context
+def setup(ctx):
 
     # auth services
     setup_ssh_keys()

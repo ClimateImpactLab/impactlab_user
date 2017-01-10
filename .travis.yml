@@ -41,8 +41,10 @@ script:
   - if [[ "$DATAFS_TEST_ENV" == "conda" ]]; then
     source activate datafs;
     fi
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then python -m pytest ./datafs ./tests ./docs;
-    else python -m pytest ./datafs ./tests ./docs --cov --doctest-modules --cov-report term-missing;
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then 
+    tox;
+    else 
+    tox;
     fi
 
 deploy:

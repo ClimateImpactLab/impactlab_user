@@ -7,7 +7,7 @@ def test_run_all_commands():
 
     runner = CliRunner()
 
-    result = runner.invoke(cli, [])
+    result = runner.invoke(cli, ['setup'])
 
     assert 'setting up ssh keys' in result.output
     assert 'setting up osdc-comupte' in result.output
