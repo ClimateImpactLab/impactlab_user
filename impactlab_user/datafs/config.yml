@@ -1,0 +1,27 @@
+default-profile: impactlab
+profiles:
+  impactlab:
+    api:
+      constructor: {}
+      user_config:
+        contact: {{contact}}
+        username: {{username}}
+        team: {{team}}}
+        
+    authorities:
+      osdc:
+        args: [cil-data]
+        kwargs:
+          calling_format: !!python/object:boto.s3.connection.OrdinaryCallingFormat {}
+          host: griffin-objstore.opensciencedatacloud.org
+          profile_name: cil
+        service: S3FS
+    cache:
+      args: [~/.datafs/data/impactlab]
+      service: OSFS
+    manager:
+      class: DynamoDBManager
+      kwargs:
+        resource_args: {region_name: us-east-1}
+        session_args: {profile_name: cil_dynamo}
+        table_name: cil-data
