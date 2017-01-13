@@ -6,11 +6,35 @@ from setuptools import setup, find_packages
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('requirements.txt', 'r') as req:
-    requirements_install = [l.strip() for l in req.readlines() if l.strip() != '']
+requirements_install = [
+    'click>=6.0',
+    'PyYAML>=3.10',
+    'Sphinx>=1.4.1',
+    'sphinx_rtd_theme>=0.1.0',
+    'boto>=2.30.0',
+    'boto3>=1.0',
+    'datafs>=0.6.3',
+    'jinja2>=2.8'
+    ]
 
-with open('requirements_test.txt', 'r') as req:
-    requirements_test = [l.strip() for l in req.readlines() if l.strip() != '']
+requirements_test = [
+    'click>=6.0',
+    'PyYAML>=3.10',
+    'Sphinx>=1.4.1',
+    'sphinx_rtd_theme>=0.1.0',
+    'boto>=2.30.0',
+    'boto3>=1.0',
+    'datafs>=0.6.3',
+    'jinja2>=2.8',
+    'pip>=8.0',
+    'wheel>=0.27',
+    'flake8>=2.0',
+    'tox>=2.3.0',
+    'coverage>=4.0',
+    'pytest>=3.0',
+    'pytest_cov>=2.0',
+    'pytest-runner>=2.5'
+    ]
 
 extras = {
     'test': requirements_test
@@ -44,6 +68,7 @@ setup(
         'Programming Language :: Python :: 2.7'
     ],
     test_suite='tests',
+    setup_requires=['pytest-runner'],
     tests_require=requirements_test,
     extras_require=extras
 )
