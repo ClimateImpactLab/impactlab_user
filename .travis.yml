@@ -44,7 +44,7 @@ script:
       if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then 
         python -m pytest ./impactlab_user ./tests;
       else
-        python -m pytest ./impactlab_user ./tests --cov --doctest-modules --cov-report term-missing;
+        python -m pytest ./impactlab_user ./tests --cov=impactlab_user --cov=tests --doctest-modules --cov-report term-missing;
       fi;
     else
       if [[ "$TRAVIS_PYTHON_VERSION" == "3.5" ]]; then 
@@ -53,6 +53,7 @@ script:
         tox;
       fi;
     fi
+
 
 deploy:
   provider: pypi
@@ -76,5 +77,4 @@ notifications:
     on_failure: never
 
 after_success:
-  - coverage combine
   - coveralls
