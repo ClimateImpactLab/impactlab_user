@@ -70,5 +70,6 @@ setup(
     test_suite='tests',
     setup_requires=['pytest-runner'],
     tests_require=requirements_test,
-    extras_require=extras
+    extras_require=extras,
+    data_files=[('yaml-templates', ['data/datafs/config.yml'])]
 )
