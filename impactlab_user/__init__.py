@@ -6,7 +6,7 @@ from __future__ import absolute_import
 
 __author__ = """Climate Impact Lab"""
 __email__ = 'jsimcock@rhg.com'
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 _module_imports = (
 )
