@@ -231,7 +231,7 @@ def datafs(ctx, name, contact, team, institution):
         'team': team,
         'institution': institution}
 
-    with open('data/datafs/config.yml', 'r') as config:
+    with open('impactlab_user/datafs/config.yml', 'r') as config:
         template = Template(config.read())
         user_config_file = template.render(**user_config)
         new_user_config = yaml.load(user_config_file)
