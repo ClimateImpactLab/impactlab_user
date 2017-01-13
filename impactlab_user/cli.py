@@ -58,6 +58,7 @@ def _recursive_dict_merge(new, default):
 
     return final
 
+
 DEFAULT_DATAFS_CONFIG = '''
 default-profile: impactlab
 profiles:
@@ -69,12 +70,13 @@ profiles:
         name: {{name}}
         team: {{team}}
         institution: {{institution}}
-        
+
     authorities:
       osdc:
         args: [cil-data]
         kwargs:
-          calling_format: !!python/object:boto.s3.connection.OrdinaryCallingFormat {}
+          calling_format: \
+            !!python/object:boto.s3.connection.OrdinaryCallingFormat {}
           host: griffin-objstore.opensciencedatacloud.org
           profile_name: cil
         service: S3FS
