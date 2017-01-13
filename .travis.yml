@@ -53,7 +53,6 @@ script:
         tox;
       fi;
     fi
-  - coverage run --source=impactlab_user setup.py test
 
 
 deploy:
