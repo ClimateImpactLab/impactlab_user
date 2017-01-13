@@ -5,8 +5,9 @@ profiles:
       constructor: {}
       user_config:
         contact: {{contact}}
-        username: {{username}}
-        team: {{team}}}
+        name: {{name}}
+        team: {{team}}
+        institution: {{institution}}
         
     authorities:
       osdc:
@@ -16,9 +17,6 @@ profiles:
           host: griffin-objstore.opensciencedatacloud.org
           profile_name: cil
         service: S3FS
-    cache:
-      args: [~/.datafs/data/impactlab]
-      service: OSFS
     manager:
       class: DynamoDBManager
       kwargs:
