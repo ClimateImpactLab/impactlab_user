@@ -28,4 +28,22 @@ Interactive setup for your machine:
 .. code-block:: bash
 
     $ pip install --upgrade impactlab_user
-    $ impactlab-user setup
+    $ impactlab-user setup all
+
+You'll need to be ready to configure all Climate Impact Lab tools, specifically:
+
+* OSDC griffin access keys (get these from griffin)
+* AWS access keys (get these from Mike or Justin)
+
+Individual subcommands can be run by specifying them:
+
+.. code-block:: bash
+
+    Commands:
+      all
+      aws
+      brc
+      datafs
+      osdc
+      osdc_data
+      ssh_keys
