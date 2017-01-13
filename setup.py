@@ -45,7 +45,7 @@ entry_points = '[console_scripts]\nimpactlab-user=impactlab_user.cli:cli'
 
 setup(
     name='impactlab_user',
-    version='0.1.0',
+    version='0.1.1',
     description="Set up users to use Climate Impact Lab tools",
     long_description=readme,
     author="Climate Impact Lab",
