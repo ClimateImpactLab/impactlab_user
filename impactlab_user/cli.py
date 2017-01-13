@@ -3,6 +3,7 @@ import click
 import os
 import yaml
 from jinja2 import Template
+import ConfigParser
 
 
 def _recursive_dict_merge(new, default):
@@ -89,15 +90,93 @@ def brc(ctx, *args, **kwargs):
 
 
 @setup.command()
+@click.option('--ACCESS_KEY_ID', default=None)
+@click.option('--SECRET_ACCESS_KEY', default=None)
 @click.pass_context
-def osdc_data(ctx, *args, **kwargs):
+def osdc_data(
+        ctx,
+        ACCESS_KEY_ID=None,
+        SECRET_ACCESS_KEY=None,
+        *args,
+        **kwargs):
+
     click.echo('setting up osdc-data')
+
+    config = ConfigParser.RawConfigParser()
+
+    config.read(os.path.expanduser('~/.aws/credentials'))
+
+    if 'cil' not in config.sections():
+        config.add_section('cil')
+
+        if ACCESS_KEY_ID is None:
+            ACCESS_KEY_ID = click.prompt(
+                'Your OSDC ACCESS_KEY_ID (get this from griffin)')
+
+        config.set(
+            'cil', 'aws_access_key_id', ACCESS_KEY_ID)
+
+        if SECRET_ACCESS_KEY is None:
+            SECRET_ACCESS_KEY = click.prompt(
+                'Your OSDC SECRET_ACCESS_KEY (get this from griffin)')
+
+        config.set(
+            'cil', 'aws_secret_access_key', SECRET_ACCESS_KEY)
+
+    # Writing our configuration file to 'example.cfg'
+    if not os.path.isdir(os.path.join(os.path.expanduser('~/'), '.aws')):
+        os.makedirs(os.path.join(os.path.expanduser('~/'), '.aws'))
+
+    with open(
+            os.path.join(os.path.expanduser('~/'), '.aws/credentials'),
+            'wb') as configfile:
+
+        config.write(configfile)
 
 
 @setup.command()
+@click.option('--AWS_ACCESS_KEY_ID', default=None)
+@click.option('--AWS_SECRET_ACCESS_KEY', default=None)
 @click.pass_context
-def aws(ctx, *args, **kwargs):
+def aws(
+        ctx,
+        AWS_ACCESS_KEY_ID=None,
+        AWS_SECRET_ACCESS_KEY=None,
+        *args,
+        **kwargs):
+
     click.echo('setting up aws')
+
+    config = ConfigParser.RawConfigParser()
+
+    config.read(os.path.expanduser('~/.aws/credentials'))
+
+    if 'cil_dynamo' not in config.sections():
+        config.add_section('cil_dynamo')
+
+        if AWS_ACCESS_KEY_ID is None:
+            AWS_ACCESS_KEY_ID = click.prompt(
+                'Your amazon AWS_ACCESS_KEY_ID (get this from Justin)')
+
+        config.set(
+            'cil_dynamo', 'aws_access_key_id', AWS_ACCESS_KEY_ID)
+
+        if AWS_SECRET_ACCESS_KEY is None:
+            AWS_SECRET_ACCESS_KEY = click.prompt(
+                'Your amazon AWS_SECRET_ACCESS_KEY (get this from Justin)')
+
+        config.set(
+            'cil_dynamo', 'aws_secret_access_key', AWS_SECRET_ACCESS_KEY)
+
+    # Writing our configuration file to 'example.cfg'
+    if not os.path.isdir(os.path.join(os.path.expanduser('~/'), '.aws')):
+        os.makedirs(os.path.join(os.path.expanduser('~/'), '.aws'))
+
+    with open(
+            os.path.join(os.path.expanduser('~/'), '.aws/credentials'),
+            'wb') as configfile:
+
+        config.write(configfile)
 
 
 @setup.command()

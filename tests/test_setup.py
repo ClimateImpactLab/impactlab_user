@@ -27,6 +27,23 @@ def tmp_getter_getter():
         shutil.rmtree(tmp)
 
 
+@contextmanager
+def tmp_usrgetter_getter():
+
+    tmp = tempfile.mkdtemp()        
+    
+    try:
+        
+        def get_tmp_dir(*args, **kwargs):
+
+            return tmp
+        
+        yield get_tmp_dir
+
+    finally:
+        shutil.rmtree(tmp)
+
+
 def test_setup_ssh_keys():
     runner = CliRunner()
     result = runner.invoke(cli, ['setup', 'ssh_keys'])
@@ -48,18 +65,30 @@ def test_setup_brc():
     assert 'setting up brc' in result.output
 
 
-def test_setup_osdc_data():
-    runner = CliRunner()
-    result = runner.invoke(cli, ['setup', 'osdc_data'])
-    assert result.exit_code == 0, result.output
-    assert 'setting up osdc-data' in result.output
+def test_setup_osdc_data(monkeypatch):
+
+    with tmp_usrgetter_getter() as get_tmp_usr:
+        
+        monkeypatch.setattr('click.prompt', get_user_input)
+        monkeypatch.setattr('os.path.expanduser', get_tmp_usr)
+    
+        runner = CliRunner()
+        result = runner.invoke(cli, ['setup', 'osdc_data'])
+        assert result.exit_code == 0, result.output
+        assert 'setting up osdc-data' in result.output
 
 
-def test_setup_aws():
-    runner = CliRunner()
-    result = runner.invoke(cli, ['setup', 'aws'])
-    assert result.exit_code == 0, result.output
-    assert 'setting up aws' in result.output
+def test_setup_aws(monkeypatch):
+
+    with tmp_usrgetter_getter() as get_tmp_usr:
+        
+        monkeypatch.setattr('click.prompt', get_user_input)
+        monkeypatch.setattr('os.path.expanduser', get_tmp_usr)
+    
+        runner = CliRunner()
+        result = runner.invoke(cli, ['setup', 'aws'])
+        assert result.exit_code == 0, result.output
+        assert 'setting up aws' in result.output
 
 
 def test_setup_datafs(monkeypatch):
@@ -95,12 +124,16 @@ def test_setup_all(monkeypatch):
     with tmp_getter_getter() as get_tmp_file:
         
         monkeypatch.setattr('click.get_app_dir', get_tmp_file)
-
-        result = runner.invoke(cli, ['setup','datafs','all'])
-        assert result.exit_code == 0, result.output
-
     
-        assert 'setting up datafs' in result.output
+        with tmp_usrgetter_getter() as get_tmp_usr:
+
+            monkeypatch.setattr('os.path.expanduser', get_tmp_usr)
+
+            result = runner.invoke(cli, ['setup','datafs','all'])
+            assert result.exit_code == 0, result.output
+
+        
+            assert 'setting up datafs' in result.output
 
 
 def test_setup_datafs_interactive(monkeypatch):
