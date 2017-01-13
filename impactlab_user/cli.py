@@ -155,6 +155,7 @@ def osdc_data(
             'cil', 'aws_secret_access_key', SECRET_ACCESS_KEY)
 
     # Writing our configuration file to 'example.cfg'
+    # This is a joined split test so our tests can mock os.path.expanduser
     if not os.path.isdir(os.path.join(os.path.expanduser('~/'), '.aws')):
         os.makedirs(os.path.join(os.path.expanduser('~/'), '.aws'))
 
@@ -200,8 +201,9 @@ def aws(
             'cil_dynamo', 'aws_secret_access_key', AWS_SECRET_ACCESS_KEY)
 
     # Writing our configuration file to 'example.cfg'
-    if not os.path.isdir(os.path.join(os.path.expanduser('~/'), '.aws')):
-        os.makedirs(os.path.join(os.path.expanduser('~/'), '.aws'))
+    # This is a joined split test so our tests can mock os.path.expanduser
+    if not os.path.isdir(os.path.join(os.path.expanduser('~'), '.aws')):
+        os.makedirs(os.path.join(os.path.expanduser('~'), '.aws'))
 
     with open(
             os.path.join(os.path.expanduser('~/'), '.aws/credentials'),
@@ -220,6 +222,8 @@ def datafs(ctx, name, contact, team, institution):
     click.echo('setting up datafs'.format(name))
 
     config_file = os.path.join(click.get_app_dir('datafs'), 'config.yml')
+    if not os.path.isdir(os.path.dirname(config_file)):
+        os.makedirs(os.path.dirname(config_file))
 
     current_config = {}
     current_user_config = {}
