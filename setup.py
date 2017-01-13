@@ -71,5 +71,5 @@ setup(
     setup_requires=['pytest-runner'],
     tests_require=requirements_test,
     extras_require=extras,
-    data_files=[('yaml-templates', ['data/datafs/config.yml'])]
+    data_files=[('yaml-templates', ['impactlab/datafs/config.yml'])]
 )
