@@ -58,6 +58,35 @@ def _recursive_dict_merge(new, default):
 
     return final
 
+DEFAULT_DATAFS_CONFIG = '''
+default-profile: impactlab
+profiles:
+  impactlab:
+    api:
+      constructor: {}
+      user_config:
+        contact: {{contact}}
+        name: {{name}}
+        team: {{team}}
+        institution: {{institution}}
+        
+    authorities:
+      osdc:
+        args: [cil-data]
+        kwargs:
+          calling_format: !!python/object:boto.s3.connection.OrdinaryCallingFormat {}
+          host: griffin-objstore.opensciencedatacloud.org
+          profile_name: cil
+        service: S3FS
+    manager:
+      class: DynamoDBManager
+      kwargs:
+        resource_args: {region_name: us-east-1}
+        session_args: {profile_name: cil_dynamo}
+        table_name: cil-data
+
+'''
+
 
 @click.group()
 @click.pass_context
@@ -231,10 +260,9 @@ def datafs(ctx, name, contact, team, institution):
         'team': team,
         'institution': institution}
 
-    with open('impactlab_user/datafs/config.yml', 'r') as config:
-        template = Template(config.read())
-        user_config_file = template.render(**user_config)
-        new_user_config = yaml.load(user_config_file)
+    template = Template(DEFAULT_DATAFS_CONFIG)
+    user_config_file = template.render(**user_config)
+    new_user_config = yaml.load(user_config_file)
 
     config = _recursive_dict_merge(current_config, default=new_user_config)
 
