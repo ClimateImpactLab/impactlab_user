@@ -53,6 +53,8 @@ script:
         tox;
       fi;
     fi
+  - coverage run --source=impactlab_user pytest
+
 
 deploy:
   provider: pypi
@@ -76,5 +78,4 @@ notifications:
     on_failure: never
 
 after_success:
-  - coverage combine
   - coveralls
