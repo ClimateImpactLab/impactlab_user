@@ -51,5 +51,3 @@ Individual subcommands can be run by specifying them:
       osdc
       osdc_data
       ssh_keys
-
-
