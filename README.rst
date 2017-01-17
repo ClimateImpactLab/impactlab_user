@@ -19,6 +19,10 @@ ImpactLab User Setup Tool
      :target: https://pyup.io/repos/github/climateimpactlab/impactlab_user/
      :alt: Updates
 
+.. image:: https://api.codacy.com/project/badge/Grade/89e3750e62a64dc9b9d6d8930cf5ded9
+   :alt: Codacy Badge
+   :target: https://www.codacy.com/app/delgadom/impactlab_user?utm_source=github.com&utm_medium=referral&utm_content=ClimateImpactLab/impactlab_user&utm_campaign=badger
+
 
 Usage
 -----
@@ -49,6 +53,3 @@ Individual subcommands can be run by specifying them:
       ssh_keys
 
 
-.. image:: https://api.codacy.com/project/badge/Grade/89e3750e62a64dc9b9d6d8930cf5ded9
-   :alt: Codacy Badge
-   :target: https://www.codacy.com/app/delgadom/impactlab_user?utm_source=github.com&utm_medium=referral&utm_content=ClimateImpactLab/impactlab_user&utm_campaign=badger
