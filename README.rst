@@ -43,7 +43,7 @@ Individual subcommands can be run by specifying them:
 
 .. code-block:: bash
 
-    Commands:
+    setup subcommands:
       all
       aws
       brc
