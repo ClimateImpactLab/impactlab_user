@@ -9,7 +9,7 @@ jinja2==2.9.4
 pip==9.0.1
 wheel==0.29.0
 flake8==3.2.1
-tox==2.5.0
+tox==2.6.0
 coverage==4.3.1
 pytest==3.0.6
 pytest_cov==2.4.0
