@@ -13,7 +13,7 @@ requirements_install = [
     'sphinx_rtd_theme>=0.1.0',
     'boto>=2.30.0',
     'boto3>=1.0',
-    'datafs>=0.6.3',
+    'datafs>=0.6.8',
     'jinja2>=2.8'
     ]
 
@@ -24,7 +24,7 @@ requirements_test = [
     'sphinx_rtd_theme>=0.1.0',
     'boto>=2.30.0',
     'boto3>=1.0',
-    'datafs>=0.6.3',
+    'datafs>=0.6.8',
     'jinja2>=2.8',
     'pip>=8.0',
     'wheel>=0.27',
@@ -45,7 +45,7 @@ entry_points = '[console_scripts]\nimpactlab-user=impactlab_user.cli:cli'
 
 setup(
     name='impactlab_user',
-    version='0.1.4',
+    version='0.1.5',
     description="Set up users to use Climate Impact Lab tools",
     long_description=readme,
     author="Climate Impact Lab",
