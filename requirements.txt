@@ -2,7 +2,7 @@ click==6.7
 PyYAML==3.12
 Sphinx==1.5.2
 sphinx_rtd_theme==0.1.10a0
-boto==2.45.0
+boto==2.46.1
 boto3==1.4.4
 datafs==0.6.9
 jinja2==2.9.5
