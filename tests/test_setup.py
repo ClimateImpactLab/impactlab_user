@@ -7,6 +7,7 @@ import tempfile
 import shutil
 import os
 
+
 def get_user_input(*args, **kwargs):
     return "my_response"
 
@@ -14,13 +15,13 @@ def get_user_input(*args, **kwargs):
 @contextmanager
 def tmp_getter_getter():
 
-    tmp = tempfile.mkdtemp()        
-    
+    tmp = tempfile.mkdtemp()
+
     try:
-        
+
         def get_tmp_dir(*args, **kwargs):
             return tmp
-        
+
         yield get_tmp_dir
 
     finally:
@@ -30,14 +31,14 @@ def tmp_getter_getter():
 @contextmanager
 def tmp_usrgetter_getter():
 
-    tmp = tempfile.mkdtemp()        
-    
+    tmp = tempfile.mkdtemp()
+
     try:
-        
+
         def get_tmp_dir(*args, **kwargs):
 
             return tmp
-        
+
         yield get_tmp_dir
 
     finally:
@@ -68,10 +69,10 @@ def test_setup_brc():
 def test_setup_osdc_data(monkeypatch):
 
     with tmp_usrgetter_getter() as get_tmp_usr:
-        
+
         monkeypatch.setattr('click.prompt', get_user_input)
         monkeypatch.setattr('os.path.expanduser', get_tmp_usr)
-    
+
         runner = CliRunner()
         result = runner.invoke(cli, ['setup', 'osdc_data'])
         assert result.exit_code == 0, result.output
@@ -81,10 +82,10 @@ def test_setup_osdc_data(monkeypatch):
 def test_setup_aws(monkeypatch):
 
     with tmp_usrgetter_getter() as get_tmp_usr:
-        
+
         monkeypatch.setattr('click.prompt', get_user_input)
         monkeypatch.setattr('os.path.expanduser', get_tmp_usr)
-    
+
         runner = CliRunner()
         result = runner.invoke(cli, ['setup', 'aws'])
         assert result.exit_code == 0, result.output
@@ -95,23 +96,23 @@ def test_setup_datafs(monkeypatch):
     runner = CliRunner()
 
     with tmp_getter_getter() as get_tmp_file:
-        
+
         monkeypatch.setattr('click.get_app_dir', get_tmp_file)
 
         result = runner.invoke(cli, [
-            'setup', 
-            'datafs', 
-            '--name', 
-            'My Name', 
-            '--contact', 
-            'my_email@hostname.com', 
-            '--team', 
-            'MyTeam', 
-            '--institution', 
+            'setup',
+            'datafs',
+            '--name',
+            'My Name',
+            '--contact',
+            'my_email@hostname.com',
+            '--team',
+            'MyTeam',
+            '--institution',
             'Institute'])
-        
+
         assert result.exit_code == 0, result.output
-        assert 'setting up datafs' in result.output    
+        assert 'setting up datafs' in result.output
 
 
 def test_setup_all(monkeypatch):
@@ -122,17 +123,16 @@ def test_setup_all(monkeypatch):
     monkeypatch.setattr('click.prompt', get_user_input)
 
     with tmp_getter_getter() as get_tmp_file:
-        
+
         monkeypatch.setattr('click.get_app_dir', get_tmp_file)
-    
+
         with tmp_usrgetter_getter() as get_tmp_usr:
 
             monkeypatch.setattr('os.path.expanduser', get_tmp_usr)
 
-            result = runner.invoke(cli, ['setup','datafs','all'])
+            result = runner.invoke(cli, ['setup', 'datafs', 'all'])
             assert result.exit_code == 0, result.output
 
-        
             assert 'setting up datafs' in result.output
 
 
@@ -144,14 +144,13 @@ def test_setup_datafs_interactive(monkeypatch):
     monkeypatch.setattr('click.prompt', get_user_input)
 
     with tmp_getter_getter() as get_tmp_file:
-        
+
         monkeypatch.setattr('click.get_app_dir', get_tmp_file)
-        
-        result = runner.invoke(cli, ['setup','datafs'])
-    
+
+        result = runner.invoke(cli, ['setup', 'datafs'])
+
     assert result.exit_code == 0, result.output
     assert 'setting up datafs' in result.output
-
 
 
 def test_setup_datafs_interactive_badconfig(monkeypatch):
@@ -162,15 +161,15 @@ def test_setup_datafs_interactive_badconfig(monkeypatch):
     monkeypatch.setattr('click.prompt', get_user_input)
 
     with tmp_getter_getter() as get_tmp_file:
-        
+
         monkeypatch.setattr('click.get_app_dir', get_tmp_file)
-        
+
         config_file = os.path.join(click.get_app_dir('datafs'), 'config.yml')
 
         with open(config_file, 'w+') as cnf:
             cnf.write('this is not ::}}}valid yaml!')
-        
-        result = runner.invoke(cli, ['setup','datafs'])
-    
+
+        result = runner.invoke(cli, ['setup', 'datafs'])
+
     assert result.exit_code == 0, result.output
     assert 'setting up datafs' in result.output

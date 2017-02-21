@@ -217,7 +217,7 @@ def aws(
 @click.option('--institution', default=None)
 @click.pass_context
 def datafs(ctx, name, contact, team, institution):
-    click.echo('setting up datafs'.format(name))
+    click.echo('setting up datafs')
 
     config_file = os.path.join(click.get_app_dir('datafs'), 'config.yml')
 
@@ -233,7 +233,7 @@ def datafs(ctx, name, contact, team, institution):
                 current_user_config = current_config['profiles'][
                     current_config['default-profile']]['api']['user_config']
 
-            except:
+            except Exception:
                 pass
 
     if name is None:
