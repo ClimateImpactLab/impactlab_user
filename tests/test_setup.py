@@ -1,4 +1,5 @@
 
+from impactlab_user import __version__
 from impactlab_user.cli import cli
 from click.testing import CliRunner
 from contextlib import contextmanager
@@ -173,3 +174,12 @@ def test_setup_datafs_interactive_badconfig(monkeypatch):
 
     assert result.exit_code == 0, result.output
     assert 'setting up datafs' in result.output
+
+
+def test_version():
+    runner = CliRunner()
+
+    result = runner.invoke(cli, ['--version'])
+
+    assert result.exit_code == 0, result.output
+    assert __version__ in result.output

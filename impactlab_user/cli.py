@@ -1,4 +1,7 @@
 
+from __future__ import absolute_import
+
+from impactlab_user import __version__
 import click
 import os
 import yaml
@@ -91,6 +94,7 @@ profiles:
 
 
 @click.group()
+@click.version_option(version=__version__, prog_name='impactlab-user')
 @click.pass_context
 def cli(ctx):
     pass
