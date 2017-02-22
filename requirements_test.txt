@@ -5,6 +5,7 @@ sphinx-rtd-theme==0.1.10b0
 boto==2.46.1
 boto3==1.4.4
 datafs==0.6.9
+impactlab_tools==0.0.3
 jinja2==2.9.5
 pip==9.0.1
 wheel==0.29.0

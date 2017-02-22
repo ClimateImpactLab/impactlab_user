@@ -5,7 +5,7 @@
 from __future__ import absolute_import
 
 __author__ = """Climate Impact Lab"""
-__version__ = '0.1.6'
+__version__ = '0.1.8'
 
 _module_imports = (
 )
