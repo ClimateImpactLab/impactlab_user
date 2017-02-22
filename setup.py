@@ -13,7 +13,8 @@ requirements_install = [
     'sphinx_rtd_theme>=0.1.0',
     'boto>=2.30.0',
     'boto3>=1.0',
-    'datafs>=0.6.8',
+    'datafs>=0.6.9',
+    'impactlab-tools>=0.0.3',
     'jinja2>=2.8'
     ]
 
@@ -24,7 +25,8 @@ requirements_test = [
     'sphinx_rtd_theme>=0.1.0',
     'boto>=2.30.0',
     'boto3>=1.0',
-    'datafs>=0.6.8',
+    'datafs>=0.6.9',
+    'impactlab-tools>=0.0.3',
     'jinja2>=2.8',
     'pip>=8.0',
     'wheel>=0.27',
