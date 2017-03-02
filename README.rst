@@ -23,6 +23,10 @@ ImpactLab User Setup Tool
         :alt: Codacy Badge
         :target: https://www.codacy.com/app/delgadom/impactlab_user?utm_source=github.com&utm_medium=referral&utm_content=ClimateImpactLab/impactlab_user&utm_campaign=badger
 
+.. image:: https://badges.gitter.im/impactlab_user/Lobby.svg
+   :alt: Join the chat at https://gitter.im/impactlab_user/Lobby
+   :target: https://gitter.im/impactlab_user/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 
 Usage
 -----
@@ -51,8 +55,3 @@ Individual subcommands can be run by specifying them:
       osdc
       osdc_data
       ssh_keys
-
-
-.. image:: https://badges.gitter.im/impactlab_user/Lobby.svg
-   :alt: Join the chat at https://gitter.im/impactlab_user/Lobby
-   :target: https://gitter.im/impactlab_user/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
