@@ -51,3 +51,8 @@ Individual subcommands can be run by specifying them:
       osdc
       osdc_data
       ssh_keys
+
+
+.. image:: https://badges.gitter.im/impactlab_user/Lobby.svg
+   :alt: Join the chat at https://gitter.im/impactlab_user/Lobby
+   :target: https://gitter.im/impactlab_user/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
