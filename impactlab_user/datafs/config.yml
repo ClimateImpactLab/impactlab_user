@@ -2,7 +2,6 @@ default-profile: impactlab
 profiles:
   impactlab:
     api:
-      constructor: {}
       user_config:
         contact: {{contact}}
         name: {{name}}
