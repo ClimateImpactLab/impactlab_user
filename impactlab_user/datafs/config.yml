@@ -2,7 +2,6 @@ default-profile: impactlab
 profiles:
   impactlab:
     api:
-      constructor: {}
       user_config:
         contact: {{contact}}
         name: {{name}}
@@ -11,7 +10,7 @@ profiles:
         
     authorities:
       osdc:
-        args: [cil-data]
+        args: [impactlab]
         kwargs:
           calling_format: !!python/object:boto.s3.connection.OrdinaryCallingFormat {}
           host: griffin-objstore.opensciencedatacloud.org
