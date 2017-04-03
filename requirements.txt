@@ -6,4 +6,4 @@ boto==2.46.1
 boto3==1.4.4
 datafs==0.7.0
 impactlab-tools==0.0.5
-jinja2==2.9.5
+jinja2==2.9.6
