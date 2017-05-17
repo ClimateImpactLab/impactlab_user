@@ -6,7 +6,12 @@ import click
 import os
 import yaml
 from jinja2 import Template
-import ConfigParser
+
+# py36 compat
+try:
+    import ConfigParser as configparser
+except ImportError:
+    import configparser as configparser
 
 
 def _recursive_dict_merge(new, default):
@@ -137,7 +142,7 @@ def osdc_data(
 
     click.echo('setting up osdc-data')
 
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
 
     config.read(os.path.expanduser('~/.aws/credentials'))
 
@@ -183,7 +188,7 @@ def aws(
 
     click.echo('setting up aws')
 
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
 
     config.read(os.path.expanduser('~/.aws/credentials'))
 
