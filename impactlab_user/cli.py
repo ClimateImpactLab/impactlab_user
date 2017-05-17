@@ -81,7 +81,7 @@ profiles:
 
     authorities:
       osdc:
-        args: [cil-data]
+        args: [impactlab]
         kwargs:
           calling_format: \
             !!python/object:boto.s3.connection.OrdinaryCallingFormat {}
