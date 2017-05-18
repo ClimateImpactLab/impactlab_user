@@ -5,6 +5,8 @@ from impactlab_user import __version__
 import click
 import os
 import yaml
+import socket
+import re
 from jinja2 import Template
 
 # py36 compat
@@ -94,8 +96,18 @@ profiles:
         resource_args: {region_name: us-east-1}
         session_args: {profile_name: cil_dynamo}
         table_name: cil-data
-
 '''
+
+DEFAULT_DATAFS_CACHE = '''
+    cache:
+      args: [{{location}}]
+      service: OSFS
+'''
+
+DEFAULT_DATAFS_CACHE_LOCATIONS = {
+    r'^[^\/]+\.brc$': '/global/scratch/mdelgado/.datafs/cache',
+    r'^sacagawea$': '/shares/gcp/.datafs/cache'
+}
 
 
 @click.group()
@@ -277,6 +289,18 @@ def datafs(ctx, name, contact, team, institution):
 
     template = Template(DEFAULT_DATAFS_CONFIG)
     user_config_file = template.render(**user_config)
+
+    hostname = socket.gethostname()
+
+    for host_pattern in DEFAULT_DATAFS_CACHE_LOCATIONS:
+        if re.search(host_pattern, hostname):
+
+            template = Template(DEFAULT_DATAFS_CACHE)
+            cache_addendum = template.render(
+                location=DEFAULT_DATAFS_CACHE_LOCATIONS[host_pattern])
+
+            user_config_file = user_config_file + cache_addendum
+
     new_user_config = yaml.load(user_config_file)
 
     config = _recursive_dict_merge(current_config, default=new_user_config)

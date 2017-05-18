@@ -7,6 +7,7 @@ import click
 import tempfile
 import shutil
 import os
+import pytest
 
 
 def get_user_input(*args, **kwargs):
@@ -38,7 +39,7 @@ def tmp_usrgetter_getter():
 
         def get_tmp_dir(*args, **kwargs):
 
-            return tmp
+            return os.path.join(tmp, 'datafs')
 
         yield get_tmp_dir
 
@@ -111,6 +112,46 @@ def test_setup_datafs(monkeypatch):
             'MyTeam',
             '--institution',
             'Institute'])
+
+        assert result.exit_code == 0, result.output
+        assert 'setting up datafs' in result.output
+
+
+@pytest.mark.parametrize("hostname", ["sacagawea", "ln000.brc", "mymachine"])
+def test_setup_shared_servers(hostname, monkeypatch):
+    runner = CliRunner()
+
+    def gethostname():
+        return hostname
+
+    with tmp_getter_getter() as get_tmp_file:
+
+        monkeypatch.setattr('click.get_app_dir', get_tmp_file)
+        monkeypatch.setattr('socket.gethostname', gethostname)
+
+        result = runner.invoke(cli, [
+            'setup',
+            'datafs',
+            '--name',
+            'My Name',
+            '--contact',
+            'my_email@hostname.com',
+            '--team',
+            'MyTeam',
+            '--institution',
+            'Institute'])
+
+        assert 'config.yml' in os.listdir(get_tmp_file())
+
+        with open(os.path.join(get_tmp_file(), 'config.yml')) as f:
+            tested_config = f.read()
+
+        if hostname == 'sacagawea':
+            assert '/shares/gcp/.datafs/cache' in tested_config
+        elif hostname.endswith('brc'):
+            assert '/global/scratch/mdelgado/.datafs/cache' in tested_config
+        else:
+            assert 'cache' not in tested_config
 
         assert result.exit_code == 0, result.output
         assert 'setting up datafs' in result.output
