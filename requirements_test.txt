@@ -2,7 +2,7 @@ click==6.7
 PyYAML==3.12
 Sphinx==1.6.1
 sphinx-rtd-theme==0.2.4
-boto==2.46.1
+boto==2.47.0
 boto3==1.4.4
 datafs==0.7.1
 impactlab-tools==0.0.5
@@ -12,6 +12,6 @@ wheel==0.29.0
 flake8==3.3.0
 tox==2.7.0
 coverage==4.4.1
-pytest==3.0.7
+pytest==3.1.0
 pytest-cov==2.5.1
 pytest-runner==2.11.1
