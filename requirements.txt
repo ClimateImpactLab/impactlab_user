@@ -2,7 +2,7 @@ click==6.7
 PyYAML==3.12
 Sphinx==1.6.1
 sphinx-rtd-theme==0.2.4
-boto==2.46.1
+boto==2.47.0
 boto3==1.4.4
 datafs==0.7.1
 impactlab-tools==0.0.5
