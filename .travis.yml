@@ -15,6 +15,7 @@ matrix:
       env: IMPACTLAB_USER_TEST_ENV=conda
 
 install:
+  - export BOTO_CONFIG=/dev/null
   - if [[ "$IMPACTLAB_USER_TEST_ENV" == "conda" ]]; then
       if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
           wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
@@ -38,6 +39,7 @@ install:
   - python -m pip install pytest-cov
 
 script:
+  - export BOTO_CONFIG=/dev/null
   - export PATH=/home/travis/miniconda/bin:$PATH
   - export PATH=/home/travis/miniconda1/bin:$PATH
   - export PATH=/home/travis/miniconda2/bin:$PATH
