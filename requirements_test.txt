@@ -1,5 +1,5 @@
 click==6.7
-PyYAML==3.12
+PyYAML==5.1
 Sphinx==1.6.2
 sphinx-rtd-theme==0.2.4
 boto==2.47.0
